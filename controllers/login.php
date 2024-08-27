@@ -11,12 +11,12 @@ $telefono = isset($_POST["telefono"]) ? limpiarCadena($_POST["telefono"]) : "";
 $email = isset($_POST["email"]) ? limpiarCadena($_POST["email"]) : "";
 $cargo = isset($_POST["cargo"]) ? limpiarCadena($_POST["cargo"]) : "";
 $login = isset($_POST["login"]) ? limpiarCadena($_POST["login"]) : "";
+$rol = isset($_POST["rol"]) ? limpiarCadena($_POST["rol"]) : "";
 $clave = isset($_POST["clave"]) ? limpiarCadena($_POST["clave"]) : "";
 $imagen = isset($_POST["imagen"]) ? limpiarCadena($_POST["imagen"]) : "";
 
 switch ($_GET["op"]) {
     case 'guardaryeditar':
-
         if (!file_exists($_FILES['imagen']['tmp_name']) || !is_uploaded_file($_FILES['imagen']['tmp_name'])) {
             $imagen = $_POST["imagenactual"];
         } else {
@@ -30,17 +30,20 @@ switch ($_GET["op"]) {
         $clavehash = hash("SHA256", $clave);
 
         if (empty($idusuario)) {
-            $rspta = $usuario->insertar($nombre, $telefono, $email, $cargo, $login, $clavehash, $imagen, $_POST['permiso']);
+            $rspta = $usuario->insertar($nombre, $telefono, $email, $cargo, $login, $clavehash, $imagen, $_POST['permiso'], $rol);
             echo $rspta ? 1 : 2;
         } else {
-            $rspta = $usuario->editar($idusuario, $nombre, $telefono, $email, $cargo, $login, $clavehash, $imagen, $_POST['permiso']);
+            if ($imagen == "") {
+                $imagen = $_POST["imagenactual"];
+            }
+            $rspta = $usuario->editar($idusuario, $nombre, $telefono, $email, $cargo, $login, $clavehash, $imagen, $_POST['permiso'], $rol);
             echo $rspta ? 3 : 4;
         }
         break;
 
     case 'desactivar':
         $rspta = $usuario->desactivar($idusuario);
-        echo $rspta ? "Usuario Desactivado" : "Usuario no se puede desactivar";
+        echo $rspta ? 1 : 0;
         break;
 
     case 'activar':
@@ -56,14 +59,12 @@ switch ($_GET["op"]) {
 
     case 'listar':
         $rspta = $usuario->listar();
-        //Vamos a declarar un array
         $data = array();
-
         while ($reg = $rspta->fetch_object()) {
             $data[] = array(
                 "0" =>
-                ' <button class="btn btn-primary" onclick="desactivar(' . $reg->idusuario . ')"><i class="now-ui-icons arrows-1_share-66"></i></button>' .
-                    ' <button class="btn btn-danger" onclick="activar(' . $reg->idusuario . ')"><i class="now-ui-icons ui-1_simple-remove"></i></button>',
+                ' <a class="btn btn-primary" href="' . getBaseUrl() . '/views/user/edit.php?id=' . $reg->idusuario . '"><i class="now-ui-icons arrows-1_share-66"></i></a>' .
+                    ' <button class="btn btn-danger" onclick="desactivarUsuario(' . $reg->idusuario . ')"><i class="now-ui-icons ui-1_simple-remove"></i></button>',
                 "1" => $reg->nombre,
                 "2" => $reg->telefono,
                 "3" => $reg->email,
@@ -74,9 +75,9 @@ switch ($_GET["op"]) {
             );
         }
         $results = array(
-            "sEcho" => 1, //Información para el datatables
-            "iTotalRecords" => count($data), //enviamos el total registros al datatable
-            "iTotalDisplayRecords" => count($data), //enviamos el total registros a visualizar
+            "sEcho" => 1,
+            "iTotalRecords" => count($data),
+            "iTotalDisplayRecords" => count($data),
             "aaData" => $data
         );
         echo json_encode($results);
@@ -125,6 +126,7 @@ switch ($_GET["op"]) {
             $_SESSION['imagen'] = $fetch->imagen;
             $_SESSION['login'] = $fetch->login;
             $_SESSION['clave'] = $fetch->clave;
+            $_SESSION['rol'] = $fetch->rol;
 
             //Obtenemos los permisos del usuario
             $marcados = $usuario->listarmarcados($fetch->idusuario);
@@ -138,14 +140,12 @@ switch ($_GET["op"]) {
             }
 
             //Determinamos los accesos del usuario
-            //Determinamos los accesos del usuario
-
-
-
-            //Determinamos los accesos del usuario
-            in_array(1, $valores) ? $_SESSION['admin'] = 1 : $_SESSION['escritorio'] = 0;
-            in_array(2, $valores) ? $_SESSION['docs'] = 1 : $_SESSION['docs'] = 0;
-            in_array(3, $valores) ? $_SESSION['case'] = 1 : $_SESSION['case'] = 0;
+            in_array(1, $valores) ? $_SESSION['admin'] = 1 : $_SESSION['admin'] = 0;
+            in_array(2, $valores) ? $_SESSION['case'] = 1 : $_SESSION['case'] = 0;
+            in_array(3, $valores) ? $_SESSION['file'] = 1 : $_SESSION['file'] = 0;
+            in_array(4, $valores) ? $_SESSION['categoria'] = 1 : $_SESSION['categoria'] = 0;
+            in_array(5, $valores) ? $_SESSION['user'] = 1 : $_SESSION['user'] = 0;
+            in_array(6, $valores) ? $_SESSION['tracking'] = 1 : $_SESSION['tracking'] = 0;
 
 
             // entre a la reunion en meet

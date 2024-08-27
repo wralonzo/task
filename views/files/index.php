@@ -1,6 +1,6 @@
 <?php
 require '../template/header.php';
-if ($_SESSION['user'] != 1) {
+if ($_SESSION['file'] != 1) {
 	header("Location: " . getBaseUrl() . "/views/noacceso.php");
 }
 ?>
@@ -13,30 +13,25 @@ if ($_SESSION['user'] != 1) {
 				<div class="card-header">
 					<div class="container">
 						<div class="center-text text-center container">
-							<h1>Listado de Usuarios</h1>
-						</div>
-						<div>
-							<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/user/insert.php"> <i class="now-ui-icons ui-1_simple-add"></i></a>
+							<h1>Listado de Adjuntos</h1>
 						</div>
 						<div class=" panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
 							<table id="tbllistado" class="table table-bordered table-hover">
 								<thead>
 									<th>ACCIONES</th>
+									<th>ID</th>
 									<th>NOMBRE</th>
-									<th>TELEFONO</th>
-									<th>E-MAIL</th>
-									<th>USER</th>
-									<th>FOTO</th>
+									<th>CASO</th>
+									<th>FECHA</th>
 								</thead>
 								<tbody>
 								</tbody>
 								<tfoot>
 									<th>Opciones</th>
-									<th>Nombre</th>
-									<th>Teléfono</th>
-									<th>Email</th>
-									<th>Login</th>
-									<th>Foto</th>
+									<th>ID</th>
+									<th>NOMBRE</th>
+									<th>CASO</th>
+									<th>FECHA</th>
 								</tfoot>
 							</table>
 						</div>
@@ -52,14 +47,14 @@ require '../template/footer.php';
 
 <script type="text/javascript">
 	function delayedFunction() {
-		$(location).attr("href", "<?= getBaseUrl() ?>/views/user");
+		$(location).attr("href", "<?= getBaseUrl() ?>/views/files");
 	}
 
-	function desactivarUsuario(id) {
+	function desactivar(id) {
 		var formData = new FormData();
-		formData.append("idusuario", id);
+		formData.append("id", id);
 		$.ajax({
-			url: "<?= getBaseUrl() ?>/controllers/login.php?op=desactivar",
+			url: "<?= getBaseUrl() ?>/controllers/adjunto.php?op=desactivar",
 			type: "POST",
 			data: formData,
 			contentType: false,
@@ -70,7 +65,7 @@ require '../template/footer.php';
 					Swal.fire({
 						position: 'top-end',
 						icon: 'success',
-						title: 'Usuario eliminado',
+						title: 'Archivo eliminado',
 						showConfirmButton: false,
 						timer: 1500
 					});
@@ -79,8 +74,8 @@ require '../template/footer.php';
 				} else {
 					Swal.fire({
 						position: 'top-end',
-						icon: 'success',
-						title: 'Usuario no eliminado',
+						icon: 'error',
+						title: 'Archivo no eliminado',
 						showConfirmButton: false,
 						timer: 1500
 					});
@@ -121,7 +116,7 @@ require '../template/footer.php';
 				},
 			],
 			"ajax": {
-				url: '<?= getBaseUrl() ?>/controllers/login.php?op=listar',
+				url: '<?= getBaseUrl() ?>/controllers/adjunto.php?op=listar',
 				type: "get",
 				dataType: "json",
 				error: function(e) {
@@ -146,41 +141,6 @@ require '../template/footer.php';
 				}
 			}
 		}).DataTable();
-
-
-
-		function activar(id) {
-			$.ajax({
-				url: "<?= getBaseUrl() ?>/controllers/login.php?op=desactivar",
-				type: "POST",
-				data: {
-					idusuario: id
-				},
-				contentType: false,
-				processData: false,
-				success: function(datos) {
-					if (datos == 1) {
-						Swal.fire({
-							position: 'top-end',
-							icon: 'success',
-							title: 'Usuario eliminado',
-							showConfirmButton: false,
-							timer: 1500
-						});
-						$(location).attr("href", "<?= getBaseUrl() ?>/views/user");
-					} else {
-						Swal.fire({
-							position: 'top-end',
-							icon: 'success',
-							title: 'Usuario no eliminado',
-							showConfirmButton: false,
-							timer: 1500
-						});
-					}
-				}
-
-			});
-		}
 	});
 </script>
 

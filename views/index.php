@@ -1,5 +1,8 @@
 <?php
 require './template/header.php';
+if ($_SESSION['admin'] != 1) {
+  header("Location: " . getBaseUrl() . "/views/noacceso.php");
+}
 ?>
 <div class="panel-header panel-header-lg">
   <canvas id="bigDashboardChart"></canvas>
@@ -298,3 +301,11 @@ require './template/header.php';
 <?php
 require './template/footer.php';
 ?>
+<script>
+  $(document).ready(function() {
+    demo.initDashboardPageCharts();
+  });
+</script>
+</body>
+
+</html>ƒ

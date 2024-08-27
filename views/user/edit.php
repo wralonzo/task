@@ -11,13 +11,15 @@ if ($_SESSION['user'] != 1) {
     <div class="col-lg-12">
       <div class="card card-chart">
         <div class="card-header">
+          <div class="center-text text-center">
+            <h1>Editar usuario</h1>
+          </div>
           <div class="panel-body" id="formularioregistros">
             <form name="formulario" id="formulario" method="POST">
               <div class="container">
                 <div class="row">
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <label>Nombre</label>
-                    <input type="hidden" name="idusuario" id="idusuario">
                     <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
                   </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -33,11 +35,6 @@ if ($_SESSION['user'] != 1) {
                     <input type="text" class="form-control" name="cargo" id="cargo" maxlength="20" placeholder="Cargo">
                   </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>Usuario</label>
-                    <input type="text" class="form-control" name="login" id="login" maxlength="20" placeholder="Usuario" required>
-                  </div>
-
-                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>Rol</label>
                     <select name="rol" id="rol" class="form-control">
                       <option selected>Seleccione una rol</option>
@@ -48,22 +45,22 @@ if ($_SESSION['user'] != 1) {
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>Contraseña</label>
-                    <input type="password" class="form-control" name="clave" id="clave" maxlength="64" placeholder="Contraseña" required>
+                    <label>Usuario</label>
+                    <input type="text" class="form-control" name="login" id="login" maxlength="20" placeholder="Usuario" required>
                   </div>
-
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>Permisos</label>
                     <div id="permisos">
-
                     </div>
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="form-group">
                       <label for="exampleInputFile">Subir foto de perfil</label>
-                      <input type="file" class="form-control-file" name="imagen" id="exampleInputFile" aria-describedby="fileHelp">
+                      <input type="file" class="form-control-file" name="imagen" id="imagen" value="">
+                      <input type="hidden" class="form-control-file" name="imagenactual" id="imagenactual" value="">
                       <small id="fileHelp" class="form-text text-muted">Click para seleccionar imagen.</small>
+                      <div id="loadimage"></div>
                     </div>
                   </div>
 
@@ -82,10 +79,58 @@ if ($_SESSION['user'] != 1) {
 </div>
 <?php
 require '../template/footer.php';
+$idusuario = $_GET["id"];
 ?>
+
 <script>
   $(document).ready(function() {
-    $.post("<?= getBaseUrl() ?>/controllers/login.php?op=permisos&id=", function(r) {
+    var formData = new FormData();
+    formData.append("idusuario", Number(<?= $idusuario ?>));
+    fetch("<?= getBaseUrl() ?>/controllers/login.php?op=mostrar", {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Cargando...',
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        $("#nombre").val(data.nombre);
+        $("#telefono").val(data.telefono);
+        $("#email").val(data.email);
+        $("#cargo").val(data.cargo);
+        $("#login").val(data.login);
+        $("#rol").val(data.rol);
+        $("#imagenactual").val(data.imagen);
+        const divElement = document.getElementById('loadimage');
+        const fileData = '<img src="<?= getBaseUrl() ?>/files/usuarios/' + data.imagen + '">';
+        divElement.innerHTML = fileData;
+
+        const fileInput = document.querySelector('input[type="file"]');
+        const myFile = new File(['mi archivo!'], '<?= getBaseUrl() ?>/files/usuarios/' + data.imagen, {
+          lastModified: new Date(),
+        });
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(myFile);
+        fileInput.files = dataTransfer.files;
+
+
+
+      });
+
+
+    $.post("<?= getBaseUrl() ?>/controllers/login.php?op=permisos&id=<?= $idusuario ?>", {}, function(r) {
       $("#permisos").html(r);
     });
 
@@ -95,8 +140,9 @@ require '../template/footer.php';
 
     function guardaryeditar(e) {
       console.log('funcion guardaryeditar');
-      e.preventDefault(); 
+      e.preventDefault();
       var formData = new FormData($("#formulario")[0]);
+      formData.append("idusuario", Number(<?= $idusuario ?>));
 
       $.ajax({
         url: "<?= getBaseUrl() ?>/controllers/login.php?op=guardaryeditar",
@@ -126,6 +172,7 @@ require '../template/footer.php';
               showConfirmButton: false,
               timer: 1500
             })
+            $(location).attr("href", "<?= getBaseUrl() ?>/views/user");
           } else if (datos == 2) {
             console.log(datos);
             Swal.fire({
@@ -148,5 +195,10 @@ require '../template/footer.php';
 
       });
     }
+
   });
 </script>
+
+</body>
+
+</html>

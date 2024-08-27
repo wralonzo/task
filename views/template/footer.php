@@ -17,13 +17,4 @@
 <script src="<?= getBaseUrl() ?>/assets/js/buttons.html5.min.js"></script>
 <script src="<?= getBaseUrl() ?>/assets/js/buttons.print.min.js"></script>
 <script src="<?= getBaseUrl() ?>/assets/js/sweetalert2@9.js"></script>
-<script>
-    $(document).ready(function() {
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
 
-    });
-</script>
-</body>
-
-</html>

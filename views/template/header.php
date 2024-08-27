@@ -67,27 +67,21 @@ if (!isset($_SESSION["nombre"])) {
                         </a>
                     </li>
                     <li>
-                        <a href="./icons.html">
-                            <i class="now-ui-icons users_circle-08"></i>
-                            <p>icons</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./map.html">
+                        <a href="<?= getBaseUrl() ?>/views/task">
                             <i class="now-ui-icons location_map-big"></i>
                             <p>Casos</p>
                         </a>
                     </li>
                     <li>
-                        <a href="./notifications.html">
+                        <a href="<?= getBaseUrl() ?>/views/files">
                             <i class="now-ui-icons files_single-copy-04"></i>
                             <p>Documentos</p>
                         </a>
                     </li>
                     <li>
-                        <a href="./user.html">
+                        <a href="<?= getBaseUrl() ?>/views/categoria">
                             <i class="now-ui-icons design_bullet-list-67"></i>
-                            <p>Tareas</p>
+                            <p>Categorías</p>
                         </a>
                     </li>
 

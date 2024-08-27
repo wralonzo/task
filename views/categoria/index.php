@@ -1,6 +1,6 @@
 <?php
 require '../template/header.php';
-if ($_SESSION['user'] != 1) {
+if ($_SESSION['categoria'] != 1) {
 	header("Location: " . getBaseUrl() . "/views/noacceso.php");
 }
 ?>
@@ -13,30 +13,24 @@ if ($_SESSION['user'] != 1) {
 				<div class="card-header">
 					<div class="container">
 						<div class="center-text text-center container">
-							<h1>Listado de Usuarios</h1>
+							<h1>Listado de categorías</h1>
 						</div>
 						<div>
-							<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/user/insert.php"> <i class="now-ui-icons ui-1_simple-add"></i></a>
+							<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/categoria/insert.php"> <i class="now-ui-icons ui-1_simple-add"></i></a>
 						</div>
 						<div class=" panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
 							<table id="tbllistado" class="table table-bordered table-hover">
 								<thead>
 									<th>ACCIONES</th>
+									<th>ID</th>
 									<th>NOMBRE</th>
-									<th>TELEFONO</th>
-									<th>E-MAIL</th>
-									<th>USER</th>
-									<th>FOTO</th>
 								</thead>
 								<tbody>
 								</tbody>
 								<tfoot>
 									<th>Opciones</th>
+									<th>Id</th>
 									<th>Nombre</th>
-									<th>Teléfono</th>
-									<th>Email</th>
-									<th>Login</th>
-									<th>Foto</th>
 								</tfoot>
 							</table>
 						</div>
@@ -52,14 +46,14 @@ require '../template/footer.php';
 
 <script type="text/javascript">
 	function delayedFunction() {
-		$(location).attr("href", "<?= getBaseUrl() ?>/views/user");
+		$(location).attr("href", "<?= getBaseUrl() ?>/views/categoria");
 	}
 
-	function desactivarUsuario(id) {
+	function desactivar(id) {
 		var formData = new FormData();
-		formData.append("idusuario", id);
+		formData.append("id", id);
 		$.ajax({
-			url: "<?= getBaseUrl() ?>/controllers/login.php?op=desactivar",
+			url: "<?= getBaseUrl() ?>/controllers/categoria.php?op=desactivar",
 			type: "POST",
 			data: formData,
 			contentType: false,
@@ -70,7 +64,7 @@ require '../template/footer.php';
 					Swal.fire({
 						position: 'top-end',
 						icon: 'success',
-						title: 'Usuario eliminado',
+						title: 'Categoría eliminada',
 						showConfirmButton: false,
 						timer: 1500
 					});
@@ -80,7 +74,7 @@ require '../template/footer.php';
 					Swal.fire({
 						position: 'top-end',
 						icon: 'success',
-						title: 'Usuario no eliminado',
+						title: 'Categoría no eliminada',
 						showConfirmButton: false,
 						timer: 1500
 					});
@@ -121,7 +115,7 @@ require '../template/footer.php';
 				},
 			],
 			"ajax": {
-				url: '<?= getBaseUrl() ?>/controllers/login.php?op=listar',
+				url: '<?= getBaseUrl() ?>/controllers/categoria.php?op=listar',
 				type: "get",
 				dataType: "json",
 				error: function(e) {
@@ -151,7 +145,7 @@ require '../template/footer.php';
 
 		function activar(id) {
 			$.ajax({
-				url: "<?= getBaseUrl() ?>/controllers/login.php?op=desactivar",
+				url: "<?= getBaseUrl() ?>/controllers/categoria.php?op=desactivar",
 				type: "POST",
 				data: {
 					idusuario: id

@@ -1,6 +1,6 @@
 <?php
 require '../template/header.php';
-if ($_SESSION['user'] != 1) {
+if ($_SESSION['case'] != 1) {
   header("Location: " . getBaseUrl() . "/views/noacceso.php");
 }
 ?>
@@ -11,59 +11,56 @@ if ($_SESSION['user'] != 1) {
     <div class="col-lg-12">
       <div class="card card-chart">
         <div class="card-header">
+          <h2 class="text-center center-text">Registrar Caso</h2>
           <div class="panel-body" id="formularioregistros">
             <form name="formulario" id="formulario" method="POST">
               <div class="container">
                 <div class="row">
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <label>Nombre</label>
-                    <input type="hidden" name="idusuario" id="idusuario">
+                    <input type="hidden" name="usuario" id="usuario" value="<?= $_SESSION['idusuario']  ?>">
                     <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
                   </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>Teléfono</label>
-                    <input type="number" class="form-control" name="telefono" id="telefono" maxlength="20" placeholder="Teléfono">
+                    <label>Descripcion</label>
+                    <input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripcion">
                   </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>E-mail</label>
-                    <input type="email" class="form-control" name="email" id="email" maxlength="50" placeholder="Email">
+                    <label>Localidad</label>
+                    <input type="text" class="form-control" name="localidad" id="localidad" maxlength="200" placeholder="Localidad">
                   </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>Cargo</label>
-                    <input type="text" class="form-control" name="cargo" id="cargo" maxlength="20" placeholder="Cargo">
-                  </div>
-                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>Usuario</label>
-                    <input type="text" class="form-control" name="login" id="login" maxlength="20" placeholder="Usuario" required>
-                  </div>
-
-                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>Rol</label>
-                    <select name="rol" id="rol" class="form-control">
-                      <option selected>Seleccione una rol</option>
-                      <option value="1">Admin</option>
-                      <option value="2">Secretaria</option>
-                      <option value="3">Investigador</option>
+                    <label>Tipo de caso</label>
+                    <select name="tipo" id="tipo" class="form-control">
+                      <option value="0" selected>Seleccione un tipo</option>
                     </select>
                   </div>
-
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>Contraseña</label>
-                    <input type="password" class="form-control" name="clave" id="clave" maxlength="64" placeholder="Contraseña" required>
+                    <label>Asignar caso a investigador</label>
+                    <select name="secretaria" id="secretaria" class="form-control">
+                      <option value="0" selected>Seleccione una investigador</option>
+                    </select>
                   </div>
-
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label>Permisos</label>
-                    <div id="permisos">
-
-                    </div>
+                    <label>Fecha vencimiento</label>
+                    <input type="date" class="form-control" name="fechavencimiento" id="fechavencimiento" placeholder="Fecha vencimiento" required>
                   </div>
-
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>Rol</label>
+                    <select name="estado" id="estado" class="form-control">
+                      <option selected>Seleccione un estado</option>
+                      <option value="Ingresado" selected>Ingresado</option>
+                      <option value="Pendiente">Pendiente</option>
+                      <option value="Completado">Completado</option>
+                      <option value="Progreso">Progreso</option>
+                      <option value="Detenido">Detenido</option>
+                    </select>
+                  </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="form-group">
-                      <label for="exampleInputFile">Subir foto de perfil</label>
+                      <label for="exampleInputFile">Subir adjunto</label>
                       <input type="file" class="form-control-file" name="imagen" id="exampleInputFile" aria-describedby="fileHelp">
-                      <small id="fileHelp" class="form-text text-muted">Click para seleccionar imagen.</small>
+                      <small id="fileHelp" class="form-text text-muted">Click para seleccionar adjunto.</small>
                     </div>
                   </div>
 
@@ -85,21 +82,18 @@ require '../template/footer.php';
 ?>
 <script>
   $(document).ready(function() {
-    $.post("<?= getBaseUrl() ?>/controllers/login.php?op=permisos&id=", function(r) {
-      $("#permisos").html(r);
-    });
-
     $("#formulario").on("submit", function(e) {
       guardaryeditar(e);
     })
 
     function guardaryeditar(e) {
       console.log('funcion guardaryeditar');
-      e.preventDefault(); 
+      e.preventDefault(); //No se activará la acción predeterminada del evento
+      // $("#btnGuardar").prop("disabled", true);
       var formData = new FormData($("#formulario")[0]);
 
       $.ajax({
-        url: "<?= getBaseUrl() ?>/controllers/login.php?op=guardaryeditar",
+        url: "<?= getBaseUrl() ?>/controllers/task.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -111,18 +105,21 @@ require '../template/footer.php';
             Swal.fire({
               position: 'top-end',
               icon: 'success',
-              title: 'Usuario registrado',
+              title: 'Caso registrado',
               showConfirmButton: false,
               timer: 1500
             });
             $("#btnGuardar").prop("disabled", false);
-            $(location).attr("href", "<?= getBaseUrl() ?>/views/user");
+            setTimeout(() => {
+              $(location).attr("href", "<?= getBaseUrl() ?>/views/task");
+            }, 2000);
+
           } else if (datos == 3) {
             console.log(datos);
             Swal.fire({
               position: 'top-end',
               icon: 'success',
-              title: 'Usuario actualizado',
+              title: 'Caso actualizado',
               showConfirmButton: false,
               timer: 1500
             })
@@ -144,9 +141,30 @@ require '../template/footer.php';
               timer: 1500
             })
           }
+        },
+        error: function(error) {
+          console.log(error);
         }
 
       });
     }
+
+    $.get("<?= getBaseUrl() ?>/controllers/task.php?op=secretarias", function(data) {
+      data = JSON.parse(data);
+      for (let i = 0; i < data.length; i++) {
+        $('#secretaria').append(new Option(data[i].nombre, data[i].idusuario));
+      }
+    });
+
+    $.get("<?= getBaseUrl() ?>/controllers/categoria.php?op=all", function(data) {
+      data = JSON.parse(data);
+      for (let i = 0; i < data.length; i++) {
+        $('#tipo').append(new Option(data[i].nombre, data[i].id));
+      }
+    });
   });
 </script>
+
+</body>
+
+</html>
