@@ -120,4 +120,10 @@ class Login
 		$sql = "SELECT idusuario, concat(nombre,' ',cargo) as nombres  FROM usuario where estado=1;";
 		return ejecutarConsulta($sql);
 	}
+
+	public function countMonth()
+	{
+		$sql = "SELECT MONTH(date_created) AS month, COUNT(*) AS user_count FROM usuario GROUP BY MONTH(date_created) ORDER BY MONTH(date_created);";
+		return ejecutarConsulta($sql);
+	}
 }

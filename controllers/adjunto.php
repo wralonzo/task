@@ -97,6 +97,26 @@ try {
             );
             echo json_encode($results);
             break;
+
+        case 'count':
+            $rspta = $file->countMonth();
+            $valores = array();
+            $response = array();
+            while ($per = $rspta->fetch_object()) {
+                array_push($valores, $per);
+            }
+            $meses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+            foreach ($meses as $value) {
+                $countMonth = 0;
+                foreach ($valores as $value2) {
+                    if ($value == $value2->month) {
+                        $countMonth = intval($value2->user_count);
+                    }
+                }
+                array_push($response, $countMonth);
+            }
+            echo json_encode($response);
+            break;
     }
 } catch (Exception $e) {
     var_dump($e);

@@ -131,4 +131,13 @@ class Task
 		WHERE b.idtask = $idtask ORDER BY b.id DESC";
 		return ejecutarConsulta($sql);
 	}
+
+	public function countMonth($rol, $id)
+	{
+		$sql = "SELECT MONTH(date_created) AS month, COUNT(*) AS user_count FROM task WHERE eliminado = 1  GROUP BY MONTH(date_created) ORDER BY MONTH(date_created);";
+		if ($rol) {
+			$sql = "SELECT MONTH(date_created) AS month, COUNT(*) AS user_count FROM task  WHERE secretaria = '$id' AND eliminado = 1 GROUP BY MONTH(date_created) ORDER BY MONTH(date_created);";
+		}
+		return ejecutarConsulta($sql);
+	}
 }

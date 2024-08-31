@@ -52,4 +52,10 @@ class Adjunto
 		$sql = "SELECT * FROM files WHERE id = $id";
 		return ejecutarConsultaSimpleFila($sql);
 	}
+
+	public function countMonth()
+	{
+		$sql = "SELECT MONTH(datecreated) AS month, COUNT(*) AS user_count FROM files WHERE estado = 1 GROUP BY MONTH(datecreated) ORDER BY MONTH(datecreated);";
+		return ejecutarConsulta($sql);
+	}
 }
