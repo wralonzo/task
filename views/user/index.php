@@ -11,10 +11,20 @@ if ($_SESSION['user'] != 1) {
 		<div class="col-lg-12">
 			<div class="card card-chart">
 				<div class="card-header">
-					<div class="container">
-						<div class="center-text text-center container">
-							<h1>Listado de Usuarios</h1>
+					<center>
+						<div class="row" style="display: flex; justify-content: space-between;">
+							<div class="col-lg-4">
+								<img width="30%" src="../../assets/img/dic.jpg" alt="PNC">
+							</div>
+							<div class="col-lg-4">
+								<h2>Listado de Usuarios</h2>
+							</div>
+							<div class="col-lg-4">
+								<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
+							</div>
 						</div>
+					</center>
+					<div class="container">
 						<div>
 							<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/user/insert.php"> <i class="now-ui-icons ui-1_simple-add"></i></a>
 						</div>

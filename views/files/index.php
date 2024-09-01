@@ -12,9 +12,19 @@ if ($_SESSION['file'] != 1) {
 			<div class="card card-chart">
 				<div class="card-header">
 					<div class="container">
-						<div class="center-text text-center container">
-							<h1>Listado de Adjuntos</h1>
-						</div>
+						<center>
+							<div class="row" style="display: flex; justify-content: space-between;">
+								<div class="col-lg-4">
+									<img width="30%" src="../../assets/img/dic.jpg" alt="PNC">
+								</div>
+								<div class="col-lg-4">
+									<h3>Listado de documentos</h3>
+								</div>
+								<div class="col-lg-4">
+									<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
+								</div>
+							</div>
+						</center>
 						<div class=" panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
 							<table id="tbllistado" class="table table-bordered table-hover">
 								<thead>

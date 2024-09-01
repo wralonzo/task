@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="./assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        Tareas y recursos
+        SIGERMIP
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -17,7 +17,7 @@
     <link href="./assets/demo/demo.css" rel="stylesheet" />
 </head>
 
-<body class="user-profile">
+<body class="user-profile" style="background-image: url('./assets/img/portada.png');  background-repeat: no-repeat;background-size:cover;">
     <div class="wrapper">
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -35,7 +35,7 @@
                                     <input type="password" class="form-control" name="password" id="password" required>
                                 </div>
                                 <div class="center-text text-center">
-                                    <button type="submit" class="btn btn-primary">Login</button>
+                                    <button type="submit" class="btn btn-primary">Ingresar</button>
                                 </div>
                             </form>
                         </div>

@@ -22,7 +22,7 @@ if (!isset($_SESSION["nombre"])) {
     <link rel="icon" type="image/png" href="<?= getBaseUrl() ?>/assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        Investigacion SYSTEM
+        SIGERMIP
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -40,30 +40,27 @@ if (!isset($_SESSION["nombre"])) {
 
 <body class="">
     <div class="wrapper ">
-        <div class="sidebar" data-color="orange">
+        <div class="sidebar"  style="background-color: #5b9bd5;">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
-            <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-                    TASK
-                </a>
-                <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-                    TASK SYSTEM
+            <div class="logo"  style="background-color: #5b9bd5;">
+                <a href="#" class="simple-text logo-normal">
+                    SIGERMIP - DEIC
                 </a>
             </div>
-            <div class="sidebar-wrapper" id="sidebar-wrapper">
+            <div class="sidebar-wrapper" id="sidebar-wrapper"  style="background-color: #5b9bd5;">
                 <ul class="nav">
                     <li class="active ">
                         <a href="<?= getBaseUrl() ?>/views/">
                             <i class="now-ui-icons design_app"></i>
-                            <p>Dashboard</p>
+                            <p>Resumen</p>
                         </a>
                     </li>
                     <li>
                         <a href="<?= getBaseUrl() ?>/views/user">
                             <i class="now-ui-icons users_circle-08"></i>
-                            <p>Usuario</p>
+                            <p>Usuarios</p>
                         </a>
                     </li>
                     <li>
@@ -101,7 +98,7 @@ if (!isset($_SESSION["nombre"])) {
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo">Dashboard</a>
+                        <a class="navbar-brand" href="#pablo">2024</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -118,7 +115,6 @@ if (!isset($_SESSION["nombre"])) {
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Perfil</a>
                                     <a class="dropdown-item" href="<?= getBaseUrl() ?>/controllers/login.php?op=salir">Salir</a>
                                 </div>
                             </li>

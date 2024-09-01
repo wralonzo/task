@@ -12,9 +12,19 @@ if ($_SESSION['categoria'] != 1) {
 			<div class="card card-chart">
 				<div class="card-header">
 					<div class="container">
-						<div class="center-text text-center container">
-							<h1>Listado de categorías</h1>
-						</div>
+						<center>
+							<div class="row" style="display: flex; justify-content: space-between;">
+								<div class="col-lg-4">
+									<img width="30%" src="../../assets/img/dic.jpg" alt="PNC">
+								</div>
+								<div class="col-lg-4">
+									<h3>Listado de categorías</h3>
+								</div>
+								<div class="col-lg-4">
+									<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
+								</div>
+							</div>
+						</center>
 						<div>
 							<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/categoria/insert.php"> <i class="now-ui-icons ui-1_simple-add"></i></a>
 						</div>

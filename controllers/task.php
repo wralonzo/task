@@ -80,8 +80,8 @@ try {
                     "0" =>
                     ' <a style="width: 5px;" class="btn btn-primary" href="' . getBaseUrl() . '/views/task/edit.php?id=' . $reg->idtask . '"><i class="now-ui-icons arrows-1_share-66"></i></a>' .
                         $rolShow .
-                        '<a style="width: 5px; margin-top: 5px;" class="btn btn-dark" href="' . getBaseUrl() . '/views/files/upload.php?id=' . $reg->idtask . '"><i class="now-ui-icons arrows-1_cloud-upload-94"></i></a>',
-                    "1" => '<a title="Historial" href="' . getBaseUrl() . '/views/tracking?id=' . $reg->idtask . '">' . $reg->nombre . '</i></a>',
+                        '<a style="width: 5px; margin-left: 2px;" class="btn btn-success" href="' . getBaseUrl() . '/views/files/upload.php?id=' . $reg->idtask . '"><i class="now-ui-icons arrows-1_cloud-upload-94"></i></a>',
+                    "1" => '<a style="color: blue;" title="Historial" href="' . getBaseUrl() . '/views/tracking?id=' . $reg->idtask . '">' . $reg->nombre . '</i></a>',
                     "2" => $reg->descripcion,
                     "3" => $usuarioAss['nombre'] ?? '',
                     "4" => $reg->localidad,
