@@ -4,14 +4,46 @@ if ($_SESSION['categoria'] != 1) {
 	header("Location: " . getBaseUrl() . "/views/noacceso.php");
 }
 ?>
+<style>
+	.container-header {
+		font-size: 1.5em;
+		color: #fff;
+		background-image: none;
+		background-color: rgba(255, 255, 255, 0.5);
+	}
+
+
+	.dataTables_filter label {
+		color: black;
+		opacity: 0.8;
+	}
+
+	.table thead tr th {
+		color: black !important;
+		opacity: 0.8 !important;
+	}
+
+	.panel-header-text {
+		color: black !important;
+		font-weight: bold;
+	}
+
+	.imagelogo {
+		background-image: url('../../assets/img/task.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-color: rgba(255, 255, 255, 0);
+
+	}
+</style>
 <div class="panel-header panel-header-lg text-white">
 </div>
 <div class="content" style="margin-top: -300px !important;">
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="card card-chart">
-				<div class="card-header">
-					<div class="container">
+				<div class="card-header imagelogo">
+					<div class="container container-header">
 						<center>
 							<div class="row" style="display: flex; justify-content: space-between;">
 								<div class="col-lg-4">
@@ -28,7 +60,7 @@ if ($_SESSION['categoria'] != 1) {
 						<div>
 							<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/categoria/insert.php"> <i class="now-ui-icons ui-1_simple-add"></i></a>
 						</div>
-						<div class=" panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
+						<div class="panel-header-text panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
 							<table id="tbllistado" class="table table-bordered table-hover">
 								<thead>
 									<th>ACCIONES</th>

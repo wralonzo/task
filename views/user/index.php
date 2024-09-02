@@ -4,51 +4,85 @@ if ($_SESSION['user'] != 1) {
 	header("Location: " . getBaseUrl() . "/views/noacceso.php");
 }
 ?>
+<style>
+	.container-header {
+		font-size: 1.5em;
+		color: #fff;
+		background-image: none;
+		background-color: rgba(255, 255, 255, 0.5);
+	}
+
+
+	.dataTables_filter label {
+		color: black;
+		opacity: 0.8;
+	}
+
+	.table thead tr th {
+		color: black !important;
+		opacity: 0.8 !important;
+	}
+
+	.panel-header-text {
+		color: black !important;
+		font-weight: bold;
+	}
+
+	.imagelogo {
+		background-image: url('../../assets/img/task.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-color: rgba(255, 255, 255, 0);
+
+	}
+</style>
 <div class="panel-header panel-header-lg text-white">
 </div>
 <div class="content" style="margin-top: -300px !important;">
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="card card-chart">
-				<div class="card-header">
-					<center>
-						<div class="row" style="display: flex; justify-content: space-between;">
-							<div class="col-lg-4">
-								<img width="30%" src="../../assets/img/dic.jpg" alt="PNC">
+				<div class="card-header imagelogo">
+					<div class="container container-header">
+						<center>
+							<div class="row" style="display: flex; justify-content: space-between;">
+								<div class="col-lg-4">
+									<img width="30%" style="margin-top: 10px;" src="../../assets/img/dic.jpg" alt="PNC">
+								</div>
+								<div class="col-lg-4">
+									<h2>Listado de Usuarios</h2>
+								</div>
+								<div class="col-lg-4">
+									<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
+								</div>
 							</div>
-							<div class="col-lg-4">
-								<h2>Listado de Usuarios</h2>
+						</center>
+						<div class="container">
+							<div>
+								<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/user/insert.php"> <i class="now-ui-icons ui-1_simple-add"></i></a>
 							</div>
-							<div class="col-lg-4">
-								<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
+							<div class="panel-header-text  panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
+								<table id="tbllistado" class="table table-bordered table-hover">
+									<thead>
+										<th>ACCIONES</th>
+										<th>NOMBRE</th>
+										<th>TELEFONO</th>
+										<th>E-MAIL</th>
+										<th>USER</th>
+										<th>FOTO</th>
+									</thead>
+									<tbody>
+									</tbody>
+									<tfoot>
+										<th>Opciones</th>
+										<th>Nombre</th>
+										<th>Teléfono</th>
+										<th>Email</th>
+										<th>Login</th>
+										<th>Foto</th>
+									</tfoot>
+								</table>
 							</div>
-						</div>
-					</center>
-					<div class="container">
-						<div>
-							<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/user/insert.php"> <i class="now-ui-icons ui-1_simple-add"></i></a>
-						</div>
-						<div class=" panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
-							<table id="tbllistado" class="table table-bordered table-hover">
-								<thead>
-									<th>ACCIONES</th>
-									<th>NOMBRE</th>
-									<th>TELEFONO</th>
-									<th>E-MAIL</th>
-									<th>USER</th>
-									<th>FOTO</th>
-								</thead>
-								<tbody>
-								</tbody>
-								<tfoot>
-									<th>Opciones</th>
-									<th>Nombre</th>
-									<th>Teléfono</th>
-									<th>Email</th>
-									<th>Login</th>
-									<th>Foto</th>
-								</tfoot>
-							</table>
 						</div>
 					</div>
 				</div>
