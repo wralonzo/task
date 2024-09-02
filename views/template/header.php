@@ -54,7 +54,7 @@ if (!isset($_SESSION["nombre"])) {
                     <li class="active ">
                         <a href="<?= getBaseUrl() ?>/views/">
                             <i class="now-ui-icons design_app"></i>
-                            <p>Resumen</p>
+                            <strong style="color: black;">Resumen</strong>
                         </a>
                     </li>
                     <li>
