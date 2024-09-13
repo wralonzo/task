@@ -18,6 +18,7 @@ try {
     $fechavencimiento = isset($_POST["fechavencimiento"]) ? limpiarCadena($_POST["fechavencimiento"]) : "";
     $imagen = isset($_POST["imagen"]) ? limpiarCadena($_POST["imagen"]) : "";
     $rol = $_SESSION['rol'] == 3 ? true : false;
+    $idUserLocal = $_SESSION['idusuario'];
 
     switch ($_GET["op"]) {
         case 'guardaryeditar':
@@ -69,9 +70,10 @@ try {
             echo json_encode($data);
             break;
         case 'listar':
-            $rspta = $task->listar();
+            $rspta = $task->listar($rol, $idUserLocal);
             $data = array();
             while ($reg = $rspta->fetch_object()) {
+                $date = new DateTime($reg->fechavencimiento);
                 $categoria = $task->mostrarCategoria($reg->tipo);
                 $usuarioAss = $task->mostrarUsuario($reg->secretaria);
                 $rolShow = $_SESSION['rol'] != 3 ? ' <button style="width: 5px;" class="btn btn-danger" onclick="desactivar(' . $reg->idtask . ')"><i class="now-ui-icons ui-1_simple-remove"></i></button>' : '';
@@ -86,7 +88,7 @@ try {
                     "3" => $usuarioAss['nombre'] ?? '',
                     "4" => $reg->localidad,
                     "5" => $categoria['nombre'] ?? '',
-                    "6" => $reg->fechavencimiento,
+                    "6" => $date->format('d/m/Y'),
                     "7" => $reg->estado,
                 );
             }

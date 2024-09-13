@@ -31,10 +31,10 @@ class Login
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($nombre, $telefono, $email, $cargo, $login, $clave, $imagen, $permisos, $rol)
+	public function insertar($nombre, $telefono, $email, $cargo, $login, $clave, $imagen, $permisos, $rol, $guardia)
 	{
-		$sql = "INSERT INTO usuario (nombre,telefono,email,cargo,login,clave,imagen,rol)VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-		$params = array($nombre, $telefono, $email, $cargo, $login, $clave, $imagen, $rol);
+		$sql = "INSERT INTO usuario (nombre,telefono,email,cargo,login,clave,imagen,rol, guardia)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		$params = array($nombre, $telefono, $email, $cargo, $login, $clave, $imagen, $rol, $guardia);
 		$result = $this->ejecutarConsulta($sql, $params);
 		$idusuarionew = $result['last_id'];
 		$num_elementos = 0;
@@ -54,9 +54,9 @@ class Login
 	}
 
 	//Implementamos un método para editar registros
-	public function editar($idusuario, $nombre, $telefono, $email, $cargo, $login, $clave, $imagen, $permisos, $rol)
+	public function editar($idusuario, $nombre, $telefono, $email, $cargo, $login, $clave, $imagen, $permisos, $rol, $guardia)
 	{
-		$sql = "UPDATE usuario SET nombre='$nombre',telefono='$telefono',email='$email',cargo='$cargo',login='$login',clave='$clave',imagen='$imagen',rol='$rol' WHERE idusuario='$idusuario'";
+		$sql = "UPDATE usuario SET guardia='$guardia', nombre='$nombre',telefono='$telefono',email='$email',cargo='$cargo',login='$login',clave='$clave',imagen='$imagen',rol='$rol' WHERE idusuario='$idusuario'";
 		ejecutarConsulta($sql);
 		$sqldel = "DELETE FROM usuario_permiso WHERE idusuario='$idusuario'";
 		ejecutarConsulta($sqldel);

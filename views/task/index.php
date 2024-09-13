@@ -39,61 +39,50 @@ if ($_SESSION['case'] != 1) {
 <div class="panel-header panel-header-lg text-white">
 </div>
 <div class="content" style="margin-top: -300px !important;">
-	<div class="row">
-		<div class=" col-lg-12">
-			<div class="card card-chart">
-				<div class="card-header imagelogo">
-					<div class="container container-header">
-						<center>
-							<div class="row" style="display: flex; justify-content: space-between;">
-								<div class="col-lg-4">
-									<img width="30%" src="../../assets/img/dic.jpg" alt="PNC" style="margin-top: 10px;">
-								</div>
-								<div class="col-lg-4">
-									<h3>Listado de casos</h3>
-								</div>
-								<div class="col-lg-4">
-									<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
-								</div>
+	<div class="imagelogo col-lg-12">
+		<div class="card-chart container-header">
+			<div class="card-header">
+				<div class=" container-header">
+					<center>
+						<div class="row" style="display: flex; justify-content: space-between;">
+							<div class="col-lg-4">
+								<img width="30%" src="../../assets/img/dic.jpg" alt="PNC" style="margin-top: 10px;">
 							</div>
-						</center>
-						<div>
-							<?php
-							if ($_SESSION['rol'] != 3): ?>
-								<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/task/insert.php"> <i class="now-ui-icons ui-1_simple-add"></i></a>
-							<?php endif; ?>
+							<div class="col-lg-4">
+								<h3>Listado de casos</h3>
+							</div>
+							<div class="col-lg-4">
+								<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
+							</div>
 						</div>
-						<div class="panel-header-text panel-body table-responsive center-text text-center" id="listadoregistros" style="font-size: 12px; margin-top: 20px;">
-							<table id="tbllistado" class="table table-bordered table-hover panel-header-text">
-								<thead style="font-size: 10px;">
-									<th><strong>ACCIONES</strong></th>
-									<th><strong>NOMBRE</strong></th>
-									<th><strong>DESCRIPCION</strong></th>
-									<th><strong>ASIGNADO</strong></th>
-									<th><strong>LOCALIDAD</strong></th>
-									<th><strong>CATEGORIA</strong></th>
-									<th><strong>FECHA VENCIMIENTO</strong></th>
-									<th><strong>ESTADO</strong></th>
-								</thead>
-								<tbody>
-								</tbody>
-								<tfoot>
-									<th>ACCIONES</th>
-									<th>NOMBRE</th>
-									<th>DESCRIPCION</th>
-									<th>ASIGNADO</th>
-									<th>LOCALIDAD</th>
-									<th>CATEGORIA</th>
-									<th>FECHA VENCIMIENTO</th>
-									<th>ESTADO</th>
-								</tfoot>
-							</table>
-						</div>
+					</center>
+					<div>
+						<?php
+						if ($_SESSION['rol'] != 3): ?>
+							<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/task/insert.php"> <i class="now-ui-icons ui-1_simple-add"></i></a>
+						<?php endif; ?>
+					</div>
+					<div class="panel-header-text panel-body table-responsive center-text text-center" id="listadoregistros" style="font-size: 12px; margin-top: 20px;">
+						<table id="tbllistado" class="table table-bordered table-hover panel-header-text">
+							<thead style="font-size: 10px;">
+								<th><strong>ACCIONES</strong></th>
+								<th><strong>NOMBRE</strong></th>
+								<th><strong>DESCRIPCION</strong></th>
+								<th><strong>ASIGNADO</strong></th>
+								<th><strong>LOCALIDAD</strong></th>
+								<th><strong>CATEGORIA</strong></th>
+								<th><strong>FECHA VENCIMIENTO</strong></th>
+								<th><strong>ESTADO</strong></th>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 <?php
 require '../template/footer.php';
@@ -163,12 +152,23 @@ require '../template/footer.php';
 				{
 					extend: 'print',
 					text: 'Imprimir',
-					title: 'Usuarios'
+					title: 'Usuarios',
+					exportOptions: {
+						columns: function(idx, data, node) {
+							return idx !== 0;
+						}
+					},
 				},
 				{
 					extend: 'pdf',
 					text: 'DESCARGAR PDF',
-					title: 'Usuarios BYTE SEVEN'
+					title: 'Usuarios BYTE SEVEN',
+					exportOptions: {
+						// Exclude the first row from export
+						rows: function(idx, data, node) {
+							return idx !== 0; // Exclude row with index 0
+						}
+					},
 				},
 			],
 			"ajax": {

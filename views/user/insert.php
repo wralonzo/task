@@ -48,6 +48,15 @@ if ($_SESSION['user'] != 1) {
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>Guardia</label>
+                    <select name="guardia" id="guardia" class="form-control">
+                      <option selected>Seleccione una rol</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>Contraseña</label>
                     <input type="password" class="form-control" name="clave" id="clave" maxlength="64" placeholder="Contraseña" required>
                   </div>
@@ -95,7 +104,7 @@ require '../template/footer.php';
 
     function guardaryeditar(e) {
       console.log('funcion guardaryeditar');
-      e.preventDefault(); 
+      e.preventDefault();
       var formData = new FormData($("#formulario")[0]);
 
       $.ajax({

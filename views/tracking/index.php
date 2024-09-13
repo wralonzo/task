@@ -218,56 +218,48 @@ $id = $_GET["id"];
 <div class="panel-header panel-header-lg text-white">
 </div>
 <div class="content" style="margin-top: -300px !important;">
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="card card-chart">
-				<div class="card-header">
-					<div class="container">
-						<div class="center-text text-center container">
-							<h1>Adjuntos del caso</h1>
-						</div>
-
-						<div class=" panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
-							<table id="tbllistado" class="table table-bordered table-hover">
-								<thead>
-									<th>ACCIONES</th>
-									<th>ID</th>
-									<th>NOMBRE</th>
-									<th>CASO</th>
-									<th>FECHA</th>
-								</thead>
-								<tbody>
-								</tbody>
-								<tfoot>
-									<th>Opciones</th>
-									<th>ID</th>
-									<th>NOMBRE</th>
-									<th>CASO</th>
-									<th>FECHA</th>
-								</tfoot>
-							</table>
-						</div>
-						<!-- Vertical Timeline -->
-
-						<div class="center-text text-center container">
-							<h1>Actividad del caso</h1>
-						</div>
-						<section id="conference-timeline">
-							<div class="conference-center-line"></div>
-							<div class="conference-timeline-content">
-								<!-- Article -->
-								<div id="htmlinsert">
-
-								</div>
-
-								<!-- // Article -->
-							</div>
-						</section>
+	<div class="imagelogo col-lg-12">
+		<div class="card-chart container-header">
+			<div class="card-header">
+				<div class="">
+					<div class="center-text text-center container">
+						<h1>Adjuntos del caso</h1>
 					</div>
+
+					<div class=" panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
+						<table id="tbllistado" class="table table-bordered table-hover">
+							<thead>
+								<th>ACCIONES</th>
+								<th>ID</th>
+								<th>NOMBRE</th>
+								<th>CASO</th>
+								<th>FECHA</th>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+					<!-- Vertical Timeline -->
+
+					<div class="center-text text-center container">
+						<h1>Actividad del caso</h1>
+					</div>
+					<section id="conference-timeline">
+						<div class="conference-center-line"></div>
+						<div class="conference-timeline-content">
+							<!-- Article -->
+							<div id="htmlinsert">
+
+							</div>
+
+							<!-- // Article -->
+						</div>
+					</section>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 </div>
 <?php
@@ -368,7 +360,12 @@ require '../template/footer.php';
 				{
 					extend: 'print',
 					text: 'Imprimir',
-					title: 'Usuarios'
+					title: 'Usuarios',
+					exportOptions: {
+						columns: function(idx, data, node) {
+							return idx !== 0;
+						}
+					},
 				},
 				{
 					extend: 'pdf',

@@ -18,8 +18,8 @@ if (!isset($_SESSION["nombre"])) {
 
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="<?= getBaseUrl() ?>/assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="<?= getBaseUrl() ?>/assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="<?= getBaseUrl() ?>/assets/img/dic.jpg">
+    <link rel="icon" type="image/png" href="<?= getBaseUrl() ?>/assets/img/dic.jpg">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
         SIGERMIP
@@ -40,16 +40,16 @@ if (!isset($_SESSION["nombre"])) {
 
 <body class="">
     <div class="wrapper ">
-        <div class="sidebar"  style="background-color: #5b9bd5;">
+        <div class="sidebar" style="background-color: #5b9bd5;">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
-            <div class="logo"  style="background-color: #5b9bd5;">
-                <a href="#" class="simple-text logo-normal">
+            <div class="logo" style="background-color: #5b9bd5;">
+                <a href="#" class="simple-text logo-normal center-text text-center">
                     SIGERMIP - DEIC
                 </a>
             </div>
-            <div class="sidebar-wrapper" id="sidebar-wrapper"  style="background-color: #5b9bd5;">
+            <div class="sidebar-wrapper" id="sidebar-wrapper" style="background-color: #5b9bd5;">
                 <ul class="nav">
                     <li class="active ">
                         <a href="<?= getBaseUrl() ?>/views/">

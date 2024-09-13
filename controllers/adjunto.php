@@ -51,6 +51,7 @@ try {
             $data = array();
             $rspta = $file->mostrarTask($idTask);
             while ($reg = $rspta->fetch_object()) {
+                $date = new DateTime($reg->fechavencimiento);
                 $data[] = array(
                     "0" =>
                     ' <a download target="_blank" class="btn btn-primary" href="' . getBaseUrl() . '/files/task/' . $reg->idtask . '/' . $reg->nombre . '"><i class="now-ui-icons files_box"></i></a>' .
@@ -58,7 +59,7 @@ try {
                     "1" => $reg->id,
                     "2" => $reg->nombre,
                     "3" => $reg->idtask,
-                    "4" => $reg->datecreated,
+                    "4" => $date->format('d/m/Y'),
                 );
             }
             $results = array(

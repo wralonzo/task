@@ -41,48 +41,40 @@ if ($_SESSION['file'] != 1) {
 </div>
 <div class="content" style="margin-top: -300px !important;">
 	<div class="row">
-		<div class="col-lg-12">
-			<div class="card card-chart">
-				<div class="card-header imagelogo">
-					<div class="container container-header">
-						<center>
-							<div class="row" style="display: flex; justify-content: space-between;">
-								<div class="col-lg-4">
-									<img width="30%" src="../../assets/img/dic.jpg" alt="PNC">
-								</div>
-								<div class="col-lg-4">
-									<h3>Listado de documentos</h3>
-								</div>
-								<div class="col-lg-4">
-									<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
-								</div>
+		<div class="imagelogo col-lg-12">
+			<div class="card-chart container-header">
+				<div class="card-header">
+					<center>
+						<div class="row" style="display: flex; justify-content: space-between;">
+							<div class="col-lg-4">
+								<img width="30%" src="../../assets/img/dic.jpg" alt="PNC">
 							</div>
-						</center>
-						<div class="panel-header-text panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
-							<table id="tbllistado" class="table table-bordered table-hover">
-								<thead>
-									<th>ACCIONES</th>
-									<th>ID</th>
-									<th>NOMBRE</th>
-									<th>CASO</th>
-									<th>FECHA</th>
-								</thead>
-								<tbody>
-								</tbody>
-								<tfoot>
-									<th>Opciones</th>
-									<th>ID</th>
-									<th>NOMBRE</th>
-									<th>CASO</th>
-									<th>FECHA</th>
-								</tfoot>
-							</table>
+							<div class="col-lg-4">
+								<h3>Listado de documentos</h3>
+							</div>
+							<div class="col-lg-4">
+								<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
+							</div>
 						</div>
+					</center>
+					<div class="panel-header-text panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
+						<table id="tbllistado" class="table table-bordered table-hover">
+							<thead>
+								<th>ACCIONES</th>
+								<th>ID</th>
+								<th>NOMBRE</th>
+								<th>CASO</th>
+								<th>FECHA</th>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 <?php
 require '../template/footer.php';
@@ -150,12 +142,22 @@ require '../template/footer.php';
 				{
 					extend: 'print',
 					text: 'Imprimir',
-					title: 'Usuarios'
+					title: 'Usuarios',
+					exportOptions: {
+						columns: function(idx, data, node) {
+							return idx !== 0;
+						}
+					},
 				},
 				{
 					extend: 'pdf',
 					text: 'DESCARGAR PDF',
-					title: 'Usuarios BYTE SEVEN'
+					title: 'Usuarios BYTE SEVEN',
+					exportOptions: {
+						columns: function(idx, data, node) {
+							return idx !== 0;
+						}
+					},
 				},
 			],
 			"ajax": {

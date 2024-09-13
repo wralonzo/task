@@ -77,9 +77,12 @@ class Task
 
 
 	//Implementar un método para listar los registros
-	public function listar()
+	public function listar($rol, $idUser)
 	{
 		$sql = "SELECT * FROM task WHERE eliminado = 1 ORDER BY idtask DESC";
+		if ($rol) {
+			$sql = "SELECT * FROM task WHERE eliminado = 1 AND secretaria = '$idUser' ORDER BY idtask DESC";
+		}
 		return ejecutarConsulta($sql);
 	}
 

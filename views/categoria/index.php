@@ -40,10 +40,10 @@ if ($_SESSION['categoria'] != 1) {
 </div>
 <div class="content" style="margin-top: -300px !important;">
 	<div class="row">
-		<div class="col-lg-12">
-			<div class="card card-chart">
-				<div class="card-header imagelogo">
-					<div class="container container-header">
+		<div class="imagelogo col-lg-12">
+			<div class="card-chart container-header">
+				<div class="card-header">
+					<div class="">
 						<center>
 							<div class="row" style="display: flex; justify-content: space-between;">
 								<div class="col-lg-4">
@@ -63,17 +63,12 @@ if ($_SESSION['categoria'] != 1) {
 						<div class="panel-header-text panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
 							<table id="tbllistado" class="table table-bordered table-hover">
 								<thead>
-									<th>ACCIONES</th>
-									<th>ID</th>
-									<th>NOMBRE</th>
+									<th>Acciones</th>
+									<th>No. de Modalidad</th>
+									<th>Nombre</th>
 								</thead>
 								<tbody>
 								</tbody>
-								<tfoot>
-									<th>Opciones</th>
-									<th>Id</th>
-									<th>Nombre</th>
-								</tfoot>
 							</table>
 						</div>
 					</div>
@@ -148,7 +143,12 @@ require '../template/footer.php';
 				{
 					extend: 'print',
 					text: 'Imprimir',
-					title: 'Usuarios'
+					title: 'Usuarios',
+					exportOptions: {
+						columns: function(idx, data, node) {
+							return idx !== 0;
+						}
+					},
 				},
 				{
 					extend: 'pdf',

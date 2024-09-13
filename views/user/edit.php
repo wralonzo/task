@@ -45,6 +45,15 @@ if ($_SESSION['user'] != 1) {
                   </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>Guardia</label>
+                    <select name="guardia" id="guardia" class="form-control">
+                      <option selected>Seleccione una rol</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>Usuario</label>
                     <input type="text" class="form-control" name="login" id="login" maxlength="20" placeholder="Usuario" required>
                   </div>
@@ -112,6 +121,7 @@ $idusuario = $_GET["id"];
         $("#cargo").val(data.cargo);
         $("#login").val(data.login);
         $("#rol").val(data.rol);
+        $("#guardia").val(data.guardia);
         $("#imagenactual").val(data.imagen);
         const divElement = document.getElementById('loadimage');
         const fileData = '<img src="<?= getBaseUrl() ?>/files/usuarios/' + data.imagen + '">';

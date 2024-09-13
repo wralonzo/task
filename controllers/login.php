@@ -14,6 +14,7 @@ $login = isset($_POST["login"]) ? limpiarCadena($_POST["login"]) : "";
 $rol = isset($_POST["rol"]) ? limpiarCadena($_POST["rol"]) : "";
 $clave = isset($_POST["clave"]) ? limpiarCadena($_POST["clave"]) : "";
 $imagen = isset($_POST["imagen"]) ? limpiarCadena($_POST["imagen"]) : "";
+$guardia = isset($_POST["guardia"]) ? limpiarCadena($_POST["guardia"]) : "";
 
 switch ($_GET["op"]) {
     case 'guardaryeditar':
@@ -30,13 +31,13 @@ switch ($_GET["op"]) {
         $clavehash = hash("SHA256", $clave);
 
         if (empty($idusuario)) {
-            $rspta = $usuario->insertar($nombre, $telefono, $email, $cargo, $login, $clavehash, $imagen, $_POST['permiso'], $rol);
+            $rspta = $usuario->insertar($nombre, $telefono, $email, $cargo, $login, $clavehash, $imagen, $_POST['permiso'], $rol, $guardia);
             echo $rspta ? 1 : 2;
         } else {
             if ($imagen == "") {
                 $imagen = $_POST["imagenactual"];
             }
-            $rspta = $usuario->editar($idusuario, $nombre, $telefono, $email, $cargo, $login, $clavehash, $imagen, $_POST['permiso'], $rol);
+            $rspta = $usuario->editar($idusuario, $nombre, $telefono, $email, $cargo, $login, $clavehash, $imagen, $_POST['permiso'], $rol, $guardia);
             echo $rspta ? 3 : 4;
         }
         break;
@@ -69,7 +70,8 @@ switch ($_GET["op"]) {
                 "2" => $reg->telefono,
                 "3" => $reg->email,
                 "4" => $reg->login,
-                "5" => isset($reg->imagen) ?
+                "5" => $reg->guardia,
+                "6" => isset($reg->imagen) ?
                     "<img alt='No imagen' src='" . getBaseUrl() . "/files/usuarios/" . $reg->imagen . "' height='50px' width='50px' >" :
                     "<img alt='No imagen' src='" . getBaseUrl() . "/files/local/avatar.png' height='50px' width='50px' >",
             );
