@@ -2,8 +2,10 @@
 session_start();
 require_once "../models/Login.php";
 require '../config/baseurl.php';
+require '../config/EmailController.php';
 
 $usuario = new Login();
+$emailsend = new EmailController(true);
 
 $idusuario = isset($_POST["idusuario"]) ? limpiarCadena($_POST["idusuario"]) : "";
 $nombre = isset($_POST["nombre"]) ? limpiarCadena($_POST["nombre"]) : "";
@@ -116,9 +118,7 @@ switch ($_GET["op"]) {
 
         //Hash SHA256 en la contraseña
         $clavehash = hash("SHA256", $clavea);
-
         $rspta = $usuario->verificar($logina, $clavehash);
-
         $fetch = $rspta->fetch_object();
 
         if (isset($fetch)) {
@@ -191,5 +191,51 @@ switch ($_GET["op"]) {
         //Redireccionamos al login
         header("Location: ../index.php");
 
+        break;
+    case 'resetpassword':
+        try {
+            $correopost = $_POST['correo'];
+            $usuariopost = $_POST['usuario'];
+            $rspta = $usuario->verificarEmail($usuariopost, $correopost);
+            $fetch = $rspta->fetch_object();
+            if (isset($fetch)) {
+                $token = bin2hex(random_bytes(50)); // Generar un token único
+                $resetLink = "Haz clic en el siguiente enlace para restablecer tu contraseña: <a href='" . getBaseUrl() . "/new_password.php?token=" . $token . "'>Restablecesr contraseña </a>";
+                $usuario->token($fetch->idusuario, $token);
+                try {
+                    $emailsend->enviarCorreo(
+                        $fetch->email,     // Dirección del destinatario
+                        'Soporte Investigacion',            // Asunto del correo
+                        $resetLink,      // Cuerpo en HTML
+                        'No responder este correo' // Cuerpo en texto plano
+                    );
+                    echo json_encode(["success" => true]);
+                } catch (Exception $e) {
+                    echo json_encode(["success" => false, "error" => $mail->ErrorInfo]);
+                }
+            }
+        } catch (Exception $e) {
+            echo json_encode(["success" => false, "error" => $mail->ErrorInfo]);
+        }
+        break;
+
+    case 'newpassword':
+        try {
+            $password = $_POST['password'];
+            $token = $_POST['token'];
+            $clavehash = hash("SHA256", $password);
+
+            $rspta = $usuario->verificarToken($token);
+            $fetch = $rspta->fetch_object();
+            if (isset($fetch->token)) {
+                $usuario->token($fetch->idusuario, null);
+                $usuario->editarPassword($fetch->idusuario, $clavehash);
+                echo json_encode(["success" => true]);
+            } else {
+                echo json_encode(["success" => false, "error" => 'Usuario no encontrado']);
+            }
+        } catch (Exception $e) {
+            echo json_encode(["success" => false, "error" => $mail->ErrorInfo]);
+        }
         break;
 }

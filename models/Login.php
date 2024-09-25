@@ -56,7 +56,7 @@ class Login
 	//Implementamos un método para editar registros
 	public function editar($idusuario, $nombre, $telefono, $email, $cargo, $login, $clave, $imagen, $permisos, $rol, $guardia)
 	{
-		$sql = "UPDATE usuario SET guardia='$guardia', nombre='$nombre',telefono='$telefono',email='$email',cargo='$cargo',login='$login',clave='$clave',imagen='$imagen',rol='$rol' WHERE idusuario='$idusuario'";
+		$sql = "UPDATE usuario SET guardia='$guardia', nombre='$nombre',telefono='$telefono',email='$email',cargo='$cargo',login='$login',imagen='$imagen',rol='$rol' WHERE idusuario='$idusuario'";
 		ejecutarConsulta($sql);
 		$sqldel = "DELETE FROM usuario_permiso WHERE idusuario='$idusuario'";
 		ejecutarConsulta($sqldel);
@@ -70,6 +70,14 @@ class Login
 			}
 		}
 
+		return $sw;
+	}
+
+	public function editarPassword($idusuario, $clave)
+	{
+		$sql = "UPDATE usuario SET clave='$clave' WHERE idusuario='$idusuario'";
+		ejecutarConsulta($sql);
+		$sw = true;
 		return $sw;
 	}
 
@@ -115,6 +123,20 @@ class Login
 		return ejecutarConsulta($sql);
 	}
 
+	public function verificarEmail($login, $correo)
+	{
+		$sql = "SELECT u.idusuario,u.nombre,u.telefono,u.email,u.cargo,u.imagen,u.login, u.clave, u.rol FROM usuario u
+		WHERE u.login='$login' AND u.email='$correo' AND estado = 1";
+		return ejecutarConsulta($sql);
+	}
+
+	public function verificarToken($token)
+	{
+		$sql = "SELECT u.token, u.idusuario,u.nombre,u.telefono,u.email,u.cargo,u.imagen,u.login, u.clave, u.rol FROM usuario u
+		WHERE u.token='$token' AND estado = 1";
+		return ejecutarConsulta($sql);
+	}
+
 	public function select()
 	{
 		$sql = "SELECT idusuario, concat(nombre,' ',cargo) as nombres  FROM usuario where estado=1;";
@@ -125,5 +147,13 @@ class Login
 	{
 		$sql = "SELECT MONTH(date_created) AS month, COUNT(*) AS user_count FROM usuario GROUP BY MONTH(date_created) ORDER BY MONTH(date_created);";
 		return ejecutarConsulta($sql);
+	}
+
+	public function token($idusuario, $token)
+	{
+		$sql = "UPDATE usuario SET token='$token' WHERE idusuario='$idusuario'";
+		ejecutarConsulta($sql);
+		$sw = true;
+		return $sw;
 	}
 }
