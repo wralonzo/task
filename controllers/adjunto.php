@@ -18,10 +18,11 @@ try {
 
             $directorio = '../files/task/' . "$idtask";
             $ext = explode(".", $_FILES["imagen"]["name"]);
+            $nombreArchivo = $_FILES["imagen"]["name"];
             $rspta = 0;
             $usuario = $_SESSION['idusuario'];
             if (end($ext) != '') {
-                $imagen = round(microtime(true)) . '.' . end($ext);
+                $imagen = $nombreArchivo;
                 if (!is_dir($directorio)) {
                     mkdir($directorio, 0777);
                 }

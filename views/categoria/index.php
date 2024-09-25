@@ -12,6 +12,13 @@ if ($_SESSION['categoria'] != 1) {
 		background-color: rgba(255, 255, 255, 0.5);
 	}
 
+	.imagelogo {
+		background-image: url('../../assets/img/task.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-color: rgba(255, 255, 255, 0);
+
+	}
 
 	.dataTables_filter label {
 		color: black;
@@ -27,42 +34,32 @@ if ($_SESSION['categoria'] != 1) {
 		color: black !important;
 		font-weight: bold;
 	}
-
-	.imagelogo {
-		background-image: url('../../assets/img/task.jpg');
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-color: rgba(255, 255, 255, 0);
-
-	}
 </style>
 <div class="panel-header panel-header-lg text-white">
 </div>
 <div class="content" style="margin-top: -300px !important;">
-	<div class="row">
-		<div class="imagelogo col-lg-12">
-			<div class="card-chart container-header">
-				<div class="card-header">
-					<div class="">
-						<center>
-							<div class="row" style="display: flex; justify-content: space-between;">
-								<div class="col-lg-4">
-									<img width="30%" src="../../assets/img/dic.jpg" alt="PNC">
-								</div>
-								<div class="col-lg-4">
-									<h3>Listado de categorías</h3>
-								</div>
-								<div class="col-lg-4">
-									<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
-								</div>
+	<div class="imagelogo col-lg-12">
+		<div class="card-chart container-header">
+			<div class="card-header">
+				<div class=" container-header">
+					<center>
+						<div class="row" style="display: flex; justify-content: space-between;">
+							<div class="col-lg-4">
+								<img width="30%" src="../../assets/img/dic.jpg" alt="PNC" style="margin-top: 10px;">
 							</div>
-						</center>
+							<div class="col-lg-4">
+								<h3>Listado de categorias</h3>
+							</div>
+							<div class="col-lg-4">
+								<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
+							</div>
+						</div>
 						<div>
 							<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/categoria/insert.php"> <i class="now-ui-icons ui-1_simple-add"></i></a>
 						</div>
-						<div class="panel-header-text panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
+						<div class="panel-header-text panel-body table-responsive center-text text-center " id=" listadoregistros" style="font-size: 12px; margin-top: 20px;">
 							<table id="tbllistado" class="table table-bordered table-hover">
-								<thead>
+								<thead style="font-size: 10px;">
 									<th>Acciones</th>
 									<th>No. de Modalidad</th>
 									<th>Nombre</th>

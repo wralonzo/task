@@ -40,24 +40,23 @@ if ($_SESSION['file'] != 1) {
 <div class="panel-header panel-header-lg text-white">
 </div>
 <div class="content" style="margin-top: -300px !important;">
-	<div class="row">
-		<div class="imagelogo col-lg-12">
-			<div class="card-chart container-header">
-				<div class="card-header">
+	<div class="imagelogo col-lg-12">
+		<div class="card-chart container-header">
+			<div class="card-header">
+				<div class=" container-header">
 					<center>
 						<div class="row" style="display: flex; justify-content: space-between;">
 							<div class="col-lg-4">
-								<img width="30%" src="../../assets/img/dic.jpg" alt="PNC">
+								<img width="30%" src="../../assets/img/dic.jpg" alt="PNC" style="margin-top: 10px;">
 							</div>
 							<div class="col-lg-4">
-								<h3>Listado de documentos</h3>
+								<h3>Listado de Documentos</h3>
 							</div>
 							<div class="col-lg-4">
 								<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
 							</div>
 						</div>
-					</center>
-					<div class="panel-header-text panel-body table-responsive center-text text-center " id=" listadoregistros" style="margin-top: 20px !important;">
+					<div class="panel-header-text panel-body table-responsive center-text text-center " id=" listadoregistros"  style="font-size: 12px; margin-top: 20px;">
 						<table id="tbllistado" class="table table-bordered table-hover">
 							<thead>
 								<th>ACCIONES</th>

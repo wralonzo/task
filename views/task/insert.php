@@ -43,7 +43,7 @@ if ($_SESSION['case'] != 1) {
                   </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>Fecha vencimiento</label>
-                    <input type="date" class="form-control" name="fechavencimiento" id="fechavencimiento" placeholder="Fecha vencimiento" required>
+                    <input type="date" class="form-control" name="fechavencimiento" id="fechavencimiento" placeholder="Fecha vencimiento">
                   </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>Rol</label>

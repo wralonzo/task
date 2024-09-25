@@ -45,14 +45,17 @@ try {
         case 'listar':
             $rspta = $task->listar();
             $data = array();
+            $counter = 0;
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
                     "0" =>
                     ' <a class="btn btn-primary" href="' . getBaseUrl() . '/views/categoria/edit.php?id=' . $reg->id . '"><i class="now-ui-icons arrows-1_share-66"></i></a>' .
                         ' <button class="btn btn-danger" onclick="desactivar(' . $reg->id . ')"><i class="now-ui-icons ui-1_simple-remove"></i></button>',
-                    "1" => $reg->id,
+                    "1" => $counter + 1,
                     "2" => $reg->nombre
                 );
+
+                $counter = $counter + 1;
             }
             $results = array(
                 "sEcho" => 1,

@@ -66,7 +66,7 @@ if ($_SESSION['case'] != 1) {
 						<table id="tbllistado" class="table table-bordered table-hover panel-header-text">
 							<thead style="font-size: 10px;">
 								<th><strong>ACCIONES</strong></th>
-								<th><strong>NOMBRE</strong></th>
+								<th><strong>AUXILIAR A CARGO</strong></th>
 								<th><strong>DESCRIPCION</strong></th>
 								<th><strong>ASIGNADO</strong></th>
 								<th><strong>LOCALIDAD</strong></th>
