@@ -215,10 +215,10 @@ $id = $_GET["id"];
 
 	/*===== // Resonsive Vertical Timeline =====*/
 </style>
-<div class="panel-header panel-header-lg text-white">
+<div class="panel-header panel-header-lg text-white" style="background-color: #fff;">
 </div>
 <div class="content" style="margin-top: -300px !important;">
-	<div class="imagelogo col-lg-12">
+	<div class="card col-lg-12">
 		<div class="card-chart container-header">
 			<div class="card-header">
 				<div class="">
