@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/dic.jpg">
-    <link rel="icon" type="image/png" href="./assets/img/dic.jpg">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/dic.png">
+    <link rel="icon" type="image/png" href="./assets/img/dic.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>SIGERMIP</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -13,6 +13,36 @@
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="./assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
     <link href="./assets/demo/demo.css" rel="stylesheet" />
+    <style>
+        body.user-profile {
+            background-image: url('./assets/img/portada.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            min-height: 100vh;
+            /* Asegura que cubra toda la altura de la ventana */
+            margin: 0;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            body.user-profile {
+                background-position: top;
+                /* Ajusta la posición en pantallas más pequeñas */
+                background-size: cover;
+                /* Mantiene la imagen cubierta en pantallas más pequeñas */
+            }
+        }
+
+        @media (max-width: 480px) {
+            body.user-profile {
+                background-position: top center;
+                /* Asegura que el centro superior sea el punto de referencia en móviles */
+                background-size: contain;
+                /* Cambia a contain si quieres que se ajuste en móviles sin cortar la imagen */
+            }
+        }
+    </style>
 </head>
 
 <body class="user-profile" style="background-image: url('./assets/img/portada.png');  background-repeat: no-repeat;background-size:cover;">

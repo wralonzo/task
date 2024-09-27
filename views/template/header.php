@@ -18,8 +18,8 @@ if (!isset($_SESSION["nombre"])) {
 
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="<?= getBaseUrl() ?>/assets/img/dic.jpg">
-    <link rel="icon" type="image/png" href="<?= getBaseUrl() ?>/assets/img/dic.jpg">
+    <link rel="apple-touch-icon" sizes="76x76" href="<?= getBaseUrl() ?>/assets/img/dic.png">
+    <link rel="icon" type="image/png" href="<?= getBaseUrl() ?>/assets/img/dic.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
         SIGERMIP

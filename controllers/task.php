@@ -15,7 +15,7 @@ try {
     $tipo = isset($_POST["tipo"]) ? limpiarCadena($_POST["tipo"]) : "";
     $secretaria = isset($_POST["secretaria"]) ? limpiarCadena($_POST["secretaria"]) : "";
     $estado = isset($_POST["estado"]) ? limpiarCadena($_POST["estado"]) : "";
-    $fechavencimiento = isset($_POST["fechavencimiento"]) ? limpiarCadena($_POST["fechavencimiento"]) : "";
+    $fechavencimiento = isset($_POST["fechavencimiento"]) ? limpiarCadena($_POST["fechavencimiento"]) : null;
     $imagen = isset($_POST["imagen"]) ? limpiarCadena($_POST["imagen"]) : "";
     $rol = $_SESSION['rol'] == 3 ? true : false;
     $idUserLocal = $_SESSION['idusuario'];
@@ -24,6 +24,9 @@ try {
         case 'guardaryeditar':
             if (empty($idtask)) {
                 try {
+                    if ($fechavencimiento == '') {
+                        $fechavencimiento = null;
+                    }
                     $rspta = $task->insertar($nombre, $descripcion, $usuario, $localidad, $secretaria, $tipo, $estado, $fechavencimiento);
                     $directorio = '../files/task/' . "$rspta";
                     $ext = explode(".", $_FILES["imagen"]["name"]);
@@ -72,8 +75,12 @@ try {
         case 'listar':
             $rspta = $task->listar($rol, $idUserLocal);
             $data = array();
+            $datenow = '';
             while ($reg = $rspta->fetch_object()) {
-                $date = new DateTime($reg->fechavencimiento);
+                if (isset($reg->fechavencimiento)) {
+                    $datenow = new DateTime($reg->fechavencimiento);
+                    $datenow = $datenow->format('d/m/Y');
+                }
                 $categoria = $task->mostrarCategoria($reg->tipo);
                 $usuarioAss = $task->mostrarUsuario($reg->secretaria);
                 $rolShow = $_SESSION['rol'] != 3 ? ' <button style="width: 5px;" class="btn btn-danger" onclick="desactivar(' . $reg->idtask . ')"><i class="now-ui-icons ui-1_simple-remove"></i></button>' : '';
@@ -88,7 +95,7 @@ try {
                     "3" => $usuarioAss['nombre'] ?? '',
                     "4" => $reg->localidad,
                     "5" => $categoria['nombre'] ?? '',
-                    "6" => $date->format('d/m/Y'),
+                    "6" => $datenow,
                     "7" => $reg->estado,
                 );
             }

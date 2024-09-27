@@ -45,34 +45,35 @@ if ($_SESSION['categoria'] != 1) {
 					<center>
 						<div class="row" style="display: flex; justify-content: space-between;">
 							<div class="col-lg-4">
-								<img width="30%" src="../../assets/img/dic.jpg" alt="PNC" style="margin-top: 10px;">
+								<img width="30%" src="../../assets/img/dic.png" alt="PNC" style="margin-top: 10px;">
 							</div>
 							<div class="col-lg-4">
-								<h3>Listado de categorias</h3>
+								<h3>Listado de casos</h3>
 							</div>
 							<div class="col-lg-4">
 								<img width="45%" src="../../assets/img/pnc.png" alt="PNC">
 							</div>
 						</div>
-						<div>
-							<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/categoria/insert.php"> <i class="now-ui-icons ui-1_simple-add"></i></a>
-						</div>
-						<div class="panel-header-text panel-body table-responsive center-text text-center " id=" listadoregistros" style="font-size: 12px; margin-top: 20px;">
-							<table id="tbllistado" class="table table-bordered table-hover">
-								<thead style="font-size: 10px;">
-									<th>Acciones</th>
-									<th>No. de Modalidad</th>
-									<th>Nombre</th>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
-						</div>
+					</center>
+					<div>
+						<a class="btn btn-success" href="<?= getBaseUrl() ?>/views/categoria/insert.phpp"> <i class="now-ui-icons ui-1_simple-add"></i></a>
+					</div>
+					<div class="panel-header-text panel-body table-responsive center-text text-center " id=" listadoregistros" style="font-size: 12px; margin-top: 20px;">
+						<table id="tbllistado" class="table table-bordered table-hover">
+							<thead style="font-size: 10px;">
+								<th>Acciones</th>
+								<th>No. de Modalidad</th>
+								<th>Nombre</th>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 <?php
 require '../template/footer.php';

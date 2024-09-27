@@ -51,17 +51,19 @@ try {
             $idTask = $_GET['idtask'];
             $data = array();
             $rspta = $file->mostrarTask($idTask);
+            $contador = 1;
             while ($reg = $rspta->fetch_object()) {
                 $date = new DateTime($reg->fechavencimiento);
                 $data[] = array(
                     "0" =>
                     ' <a download target="_blank" class="btn btn-primary" href="' . getBaseUrl() . '/files/task/' . $reg->idtask . '/' . $reg->nombre . '"><i class="now-ui-icons files_box"></i></a>' .
                         ' <button class="btn btn-danger" onclick="desactivar(' . $reg->id . ')"><i class="now-ui-icons ui-1_simple-remove"></i></button>',
-                    "1" => $reg->id,
+                    "1" => $contador,
                     "2" => $reg->nombre,
-                    "3" => $reg->idtask,
+                    "3" => $contador,
                     "4" => $date->format('d/m/Y'),
                 );
+                $contador = $contador + 1;
             }
             $results = array(
                 "sEcho" => 1,
@@ -80,16 +82,18 @@ try {
                 $dataTask[] = $regt->idtask;
             }
             $rspta = $file->listar($rol, $dataTask);
+            $contador = 1;
             while ($reg = $rspta->fetch_object()) {
                 $data[] = array(
                     "0" =>
                     ' <a style="width: 10px;" download target="_blank" class="btn btn-primary" href="' . getBaseUrl() . '/files/task/' . $reg->idtask . '/' . $reg->nombre . '"><i class="now-ui-icons files_box"></i></a>' .
                         ' <button style="width: 10px;" class="btn btn-danger" onclick="desactivar(' . $reg->id . ')"><i class="now-ui-icons ui-1_simple-remove"></i></button>',
-                    "1" => $reg->id,
+                    "1" => $contador,
                     "2" => $reg->nombre,
-                    "3" => $reg->idtask,
+                    "3" => $contador,
                     "4" => $reg->datecreated,
                 );
+                $contador = $contador + 1;
             }
             $results = array(
                 "sEcho" => 1,

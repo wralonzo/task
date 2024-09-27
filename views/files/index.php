@@ -47,7 +47,7 @@ if ($_SESSION['file'] != 1) {
 					<center>
 						<div class="row" style="display: flex; justify-content: space-between;">
 							<div class="col-lg-4">
-								<img width="30%" src="../../assets/img/dic.jpg" alt="PNC" style="margin-top: 10px;">
+								<img width="30%" src="../../assets/img/dic.png" alt="PNC" style="margin-top: 10px;">
 							</div>
 							<div class="col-lg-4">
 								<h3>Listado de Documentos</h3>

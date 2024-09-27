@@ -1,9 +1,20 @@
 <?php
 require './template/header.php';
-if ($_SESSION['admin'] != 1) {
-  header("Location: " . getBaseUrl() . "/views/noacceso.php");
-}
-?>
+?><style>
+  .mes-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .mes-item {
+    width: 200px;
+    margin: 5px;
+    margin-left: 60px;
+    padding: 10px;
+    border: 1px solid #000;
+    text-align: center;
+  }
+</style>
 <div class="panel-header panel-header-lg">
   <canvas id="bigDashboardChart"></canvas>
 </div>
@@ -12,58 +23,27 @@ if ($_SESSION['admin'] != 1) {
     <div class="col-lg-4">
       <div class="card card-chart">
         <div class="card-header">
-          <h5 class="card-category">Casos</h5>
           <h4 class="card-title">Todos los casos</h4>
-          <div class="dropdown">
-          </div>
+          <div id="casosmes"></div>
         </div>
-        <div class="card-body">
-          <div class="chart-area">
-            <canvas id="lineChartExampleCasos"></canvas>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="stats">
-            <i class="now-ui-icons arrows-1_refresh-69"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-6">
-      <div class="card card-chart">
-        <div class="card-header">
-          <h5 class="card-category">Usuario</h5>
-          <h4 class="card-title">Todos los usuario</h4>
 
-        </div>
-        <div class="card-body">
-          <div class="chart-area">
-            <canvas id="lineChartExampleWithNumbersAndGrid"></canvas>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="stats">
-            <i class="now-ui-icons arrows-1_refresh-69"></i>
-          </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h4 class="card-title">Todos los usuario</h4>
+          <div id="loginmeses"></div>
         </div>
       </div>
     </div>
     <div class="col-lg-4 col-md-6">
       <div class="card card-chart">
         <div class="card-header">
-          <h5 class="card-category">Documentos</h5>
           <h4 class="card-title">Todos los documentos</h4>
+          <div id="adjuntodiv"></div>
         </div>
-        <div class="card-body">
-          <div class="chart-area">
-            <canvas id="barChartSimpleGradientsNumbers"></canvas>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="stats">
-            <i class="now-ui-icons ui-2_time-alarm"></i>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -256,6 +236,12 @@ require './template/footer.php';
 ?>
 
 <script>
+  const nombresMeses = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ];
+
+
   $(document).ready(function() {
     demo = {
       initPickColor: function() {
@@ -532,70 +518,6 @@ require './template/footer.php';
           },
         });
 
-
-
-        fetch("<?= getBaseUrl() ?>/controllers/task.php?op=count", {
-            method: 'GET',
-          })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(data => {
-            ctx = document
-              .getElementById("lineChartExampleCasos")
-              .getContext("2d");
-            gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
-            gradientStroke.addColorStop(0, "#18ce0f");
-            gradientStroke.addColorStop(1, chartColor);
-
-            gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
-            gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-            gradientFill.addColorStop(1, hexToRGB("#18ce0f", 0.4));
-
-            myChart = new Chart(ctx, {
-              type: "line",
-              responsive: true,
-              data: {
-                labels: [
-                  "JAN",
-                  "FEB",
-                  "MAR",
-                  "APR",
-                  "MAY",
-                  "JUN",
-                  "JUL",
-                  "AUG",
-                  "SEP",
-                  "OCT",
-                  "NOV",
-                  "DEC",
-                ],
-                datasets: [{
-                  label: "Email Stats",
-                  borderColor: "#18ce0f",
-                  pointBorderColor: "#FFF",
-                  pointBackgroundColor: "#18ce0f",
-                  pointBorderWidth: 2,
-                  pointHoverRadius: 4,
-                  pointHoverBorderWidth: 1,
-                  pointRadius: 4,
-                  fill: true,
-                  backgroundColor: gradientFill,
-                  borderWidth: 2,
-                  data: data,
-                }, ],
-              },
-              options: gradientChartOptionsConfigurationWithNumbersAndGrid,
-            });
-
-          });
-
-
-
-
         fetch("<?= getBaseUrl() ?>/controllers/login.php?op=count", {
             method: 'GET',
           })
@@ -749,186 +671,67 @@ require './template/footer.php';
 
 
       },
-
-      initGoogleMaps: function() {
-        var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
-        var mapOptions = {
-          zoom: 13,
-          center: myLatlng,
-          scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
-          styles: [{
-              featureType: "water",
-              elementType: "geometry",
-              stylers: [{
-                  color: "#e9e9e9",
-                },
-                {
-                  lightness: 17,
-                },
-              ],
-            },
-            {
-              featureType: "landscape",
-              elementType: "geometry",
-              stylers: [{
-                  color: "#f5f5f5",
-                },
-                {
-                  lightness: 20,
-                },
-              ],
-            },
-            {
-              featureType: "road.highway",
-              elementType: "geometry.fill",
-              stylers: [{
-                  color: "#ffffff",
-                },
-                {
-                  lightness: 17,
-                },
-              ],
-            },
-            {
-              featureType: "road.highway",
-              elementType: "geometry.stroke",
-              stylers: [{
-                  color: "#ffffff",
-                },
-                {
-                  lightness: 29,
-                },
-                {
-                  weight: 0.2,
-                },
-              ],
-            },
-            {
-              featureType: "road.arterial",
-              elementType: "geometry",
-              stylers: [{
-                  color: "#ffffff",
-                },
-                {
-                  lightness: 18,
-                },
-              ],
-            },
-            {
-              featureType: "road.local",
-              elementType: "geometry",
-              stylers: [{
-                  color: "#ffffff",
-                },
-                {
-                  lightness: 16,
-                },
-              ],
-            },
-            {
-              featureType: "poi",
-              elementType: "geometry",
-              stylers: [{
-                  color: "#f5f5f5",
-                },
-                {
-                  lightness: 21,
-                },
-              ],
-            },
-            {
-              featureType: "poi.park",
-              elementType: "geometry",
-              stylers: [{
-                  color: "#dedede",
-                },
-                {
-                  lightness: 21,
-                },
-              ],
-            },
-            {
-              elementType: "labels.text.stroke",
-              stylers: [{
-                  visibility: "on",
-                },
-                {
-                  color: "#ffffff",
-                },
-                {
-                  lightness: 16,
-                },
-              ],
-            },
-            {
-              elementType: "labels.text.fill",
-              stylers: [{
-                  saturation: 36,
-                },
-                {
-                  color: "#333333",
-                },
-                {
-                  lightness: 40,
-                },
-              ],
-            },
-            {
-              elementType: "labels.icon",
-              stylers: [{
-                visibility: "off",
-              }, ],
-            },
-            {
-              featureType: "transit",
-              elementType: "geometry",
-              stylers: [{
-                  color: "#f2f2f2",
-                },
-                {
-                  lightness: 19,
-                },
-              ],
-            },
-            {
-              featureType: "administrative",
-              elementType: "geometry.fill",
-              stylers: [{
-                  color: "#fefefe",
-                },
-                {
-                  lightness: 20,
-                },
-              ],
-            },
-            {
-              featureType: "administrative",
-              elementType: "geometry.stroke",
-              stylers: [{
-                  color: "#fefefe",
-                },
-                {
-                  lightness: 17,
-                },
-                {
-                  weight: 1.2,
-                },
-              ],
-            },
-          ],
-        };
-
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-        var marker = new google.maps.Marker({
-          position: myLatlng,
-          title: "Hello World!",
-        });
-
-        // To add the marker to the map, call setMap();
-        marker.setMap(map);
-      },
     };
+    fetch("<?= getBaseUrl() ?>/controllers/task.php?op=count", {
+        method: 'GET',
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        const mesesDiv = document.getElementById('casosmes');
+        data.forEach((value, index) => {
+          const mesDiv = document.createElement('div');
+          mesDiv.className = 'mes-item';
+          const nombreMes = nombresMeses[index]; // Obtener el nombre del mes correspondiente
+          mesDiv.innerHTML = `<strong>${nombreMes}:</strong> ${value}`;
+          mesesDiv.appendChild(mesDiv);
+        });
+      });
+
+
+    fetch("<?= getBaseUrl() ?>/controllers/login.php?op=count", {
+        method: 'GET',
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        const mesesDiv = document.getElementById('loginmeses');
+        data.forEach((item) => {
+          const mesDiv = document.createElement('div');
+          mesDiv.className = 'mes-item';
+          const nombreMes = nombresMeses[item.mes - 1]; // Obtener el nombre del mes correspondiente
+          mesDiv.innerHTML = `<strong>${nombreMes}:</strong> ${item.value}`;
+          mesesDiv.appendChild(mesDiv);
+        });
+      });
+
+    fetch("<?= getBaseUrl() ?>/controllers/adjunto.php?op=count", {
+        method: 'GET',
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        const mesesDiv = document.getElementById('adjuntodiv');
+        data.forEach((value, index) => {
+          const mesDiv = document.createElement('div');
+          mesDiv.className = 'mes-item';
+          const nombreMes = nombresMeses[index]; // Obtener el nombre del mes correspondiente
+          mesDiv.innerHTML = `<strong>${nombreMes}:</strong> ${value}`;
+          mesesDiv.appendChild(mesDiv);
+        });
+      });
 
 
     demo.initDashboardPageCharts();
