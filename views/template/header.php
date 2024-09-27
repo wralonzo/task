@@ -51,42 +51,51 @@ if (!isset($_SESSION["nombre"])) {
             </div>
             <div class="sidebar-wrapper" id="sidebar-wrapper" style="background-color: #5b9bd5;">
                 <ul class="nav">
-                    <?php if($_SESSION['admin'] == 1): ?>
-                    <li class="active ">
-                        <a href="<?= getBaseUrl() ?>/views/">
-                            <i class="now-ui-icons design_app"></i>
-                            <strong style="color: black;">Resumen</strong>
-                        </a>
-                    </li>
-                    <?php endif; if($_SESSION['user'] == 1): ?>
-                    <li>
-                        <a href="<?= getBaseUrl() ?>/views/user">
-                            <i class="now-ui-icons users_circle-08"></i>
-                            <p>Usuarios</p>
-                        </a>
-                    </li>
-                    <?php endif;  if($_SESSION['case'] == 1): ?>
-                    <li>
-                        <a href="<?= getBaseUrl() ?>/views/task">
-                            <i class="now-ui-icons location_map-big"></i>
-                            <p>Casos</p>
-                        </a>
-                    </li>
-                    <?php endif;  if($_SESSION['file'] == 1): ?>
-                    <li>
-                        <a href="<?= getBaseUrl() ?>/views/files">
-                            <i class="now-ui-icons files_single-copy-04"></i>
-                            <p>Documentos</p>
-                        </a>
-                    </li>
-                    <?php endif;  if($_SESSION['categoria'] == 1): ?>
-                    <li>
-                        <a href="<?= getBaseUrl() ?>/views/categoria">
-                            <i class="now-ui-icons design_bullet-list-67"></i>
-                            <p>Categorías</p>
-                        </a>
-                    </li>
+                    <?php if ($_SESSION['admin'] == 1): ?>
+                        <li class="active ">
+                            <a href="<?= getBaseUrl() ?>/views/">
+                                <i class="now-ui-icons design_app"></i>
+                                <strong style="color: black;">Resumen</strong>
+                            </a>
+                        </li>
+                    <?php endif;
+                    if ($_SESSION['user'] == 1): ?>
+                        <li>
+                            <a href="<?= getBaseUrl() ?>/views/user">
+                                <i class="now-ui-icons users_circle-08"></i>
+                                <p>Usuarios</p>
+                            </a>
+                        </li>
+                    <?php endif;
+                    if ($_SESSION['case'] == 1): ?>
+                        <li>
+                            <a href="<?= getBaseUrl() ?>/views/task">
+                                <i class="now-ui-icons location_map-big"></i>
+                                <p>Casos</p>
+                            </a>
+                        </li>
+                    <?php endif;
+                    if ($_SESSION['file'] == 1): ?>
+                        <li>
+                            <a href="<?= getBaseUrl() ?>/views/files">
+                                <i class="now-ui-icons files_single-copy-04"></i>
+                                <p>Documentos</p>
+                            </a>
+                        </li>
+                    <?php endif;
+                    if ($_SESSION['categoria'] == 1): ?>
+                        <li>
+                            <a href="<?= getBaseUrl() ?>/views/categoria">
+                                <i class="now-ui-icons design_bullet-list-67"></i>
+                                <p>Categorías</p>
+                            </a>
+                        </li>
                     <?php endif; ?>
+                    <li>
+                        <a href="<?= getBaseUrl() ?>/controllers/login.php?op=salir">
+                            <i class="now-ui-icons users_circle-08"></i>
+                            <p>Salir</p>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -116,7 +125,7 @@ if (!isset($_SESSION["nombre"])) {
                                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <i class="now-ui-icons users_single-02"></i>
                                     <p>
-                                        <span class="d-lg-none d-md-block">Account</span>
+                                        <span class="d-lg-none d-md-block">Cuenta</span>
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">

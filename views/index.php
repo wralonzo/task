@@ -15,40 +15,41 @@ require './template/header.php';
     text-align: center;
   }
 </style>
-<div class="panel-header panel-header-lg">
-  <canvas id="bigDashboardChart"></canvas>
-</div>
-<div class="content">
-  <div class="row">
-    <div class="col-lg-4">
-      <div class="card card-chart">
-        <div class="card-header">
-          <h4 class="card-title">Todos los casos</h4>
-          <div id="casosmes"></div>
-        </div>
-
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-6">
-      <div class="card card-chart">
-        <div class="card-header">
-          <h4 class="card-title">Todos los usuario</h4>
-          <div id="loginmeses"></div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-6">
-      <div class="card card-chart">
-        <div class="card-header">
-          <h4 class="card-title">Todos los documentos</h4>
-          <div id="adjuntodiv"></div>
-        </div>
-
-      </div>
-    </div>
+<?php if ($_SESSION['admin'] == 1) : ?>
+  <div class="panel-header panel-header-lg">
+    <canvas id="bigDashboardChart"></canvas>
   </div>
-  <div class="row">
-    <!-- <div class="col-md-6">
+  <div class="content">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h4 class="card-title">Todos los casos</h4>
+            <div id="casosmes"></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h4 class="card-title">Todos los usuario</h4>
+            <div id="loginmeses"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h4 class="card-title">Todos los documentos</h4>
+            <div id="adjuntodiv"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- <div class="col-md-6">
       <div class="card  card-tasks">
         <div class="card-header ">
           <h5 class="card-category">Backend development</h5>
@@ -229,8 +230,9 @@ require './template/header.php';
       </div>
     </div>
   </div> -->
+    </div>
   </div>
-</div>
+<?php endif; ?>
 <?php
 require './template/footer.php';
 ?>
@@ -737,6 +739,7 @@ require './template/footer.php';
     demo.initDashboardPageCharts();
   });
 </script>
+
 </body>
 
-</html>ƒ
+</html>
